@@ -1,7 +1,15 @@
-function selectRole(role) {
-  // store role for later use after login
-  sessionStorage.setItem("selectedRole", role);
+function goTo(path) {
+  window.location.href = path;
+}
 
-  // redirect to sign-in page
+function selectRole(role) {
+  // Player → direct Stranger Trash / Trash Dash
+  if (role === "player") {
+    window.location.href = "http://172.17.105.224:8000/"; // 🔴 REPLACE WITH REAL SERVER IP
+    return;
+  }
+
+  // Household & Collector → Auth page
+  sessionStorage.setItem("selectedRole", role);
   window.location.href = "/auth";
 }
