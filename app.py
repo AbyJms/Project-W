@@ -27,6 +27,6 @@ def auth():
 def signup():
     return render_template("signup.html")
 
-# ⚠️ app.run MUST BE LAST
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
+

@@ -3,6 +3,13 @@ function goTo(path) {
 }
 
 function selectRole(role) {
+  // 🔥 PLAYER FLOW — DO NOT TOUCH BACKEND
+  if (role === "player") {
+    window.location.href = "http://172.17.105.224:8000/";
+    return;
+  }
+
+  // Household / Collector → Auth
   sessionStorage.setItem("selectedRole", role);
   goTo("/auth");
 }
@@ -13,7 +20,7 @@ document.getElementById("authForm")?.addEventListener("submit", e => {
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phone").value;
 
-  // Try login first
+  // Login first
   fetch("/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -21,7 +28,8 @@ document.getElementById("authForm")?.addEventListener("submit", e => {
   })
   .then(r => {
     if (r.ok) return r.json();
-    // If not found → register
+
+    // Not found → register (ONLY for non-player)
     return fetch("/api/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
