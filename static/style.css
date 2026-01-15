@@ -406,3 +406,17 @@ footer {
 .signup-link:hover {
   text-decoration: underline;
 }
+
+/* ================= SIGNUP PAGE ================= */
+
+.auth-right form input {
+  background-color: #ffffff;
+}
+
+.auth-right form label {
+  margin-top: 6px;
+}
+
+.primary-btn.full {
+  width: 100%;
+}
