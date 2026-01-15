@@ -23,13 +23,18 @@ function goBackHome() {
 function signIn(e) {
   e.preventDefault();
 
-  const role = localStorage.getItem("projectW_role");
-
-  // demo only
-  alert(`Signed in as ${role}`);
-
-  // later:
-  // if (role === "household") goTo("/household-dashboard");
-  // if (role === "collector") goTo("/collector-dashboard");
-  // if (role === "admin") goTo("/admin-dashboard");
+  fetch("/api/login", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      email: document.querySelector("input[type=email]").value,
+      password: document.querySelector("input[type=password]").value,
+      role: localStorage.getItem("projectW_role")
+    })
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (!d.ok) return alert("Invalid login");
+    alert("Logged in as " + d.role);
+  });
 }
