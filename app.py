@@ -38,133 +38,127 @@ def household():
     return render_template("household.html")
 
 # --------------------
-# HOUSEHOLD SIGNUP
-# --------------------
-
-@app.post("/api/signup")
-def api_signup():
-    d = request.json
-    cur = mysql.connection.cursor()
-
-    cur.execute(
-        "SELECT household_id FROM households WHERE contact_phone=%s",
-        (d["phone"],)
-    )
-    if cur.fetchone():
-        cur.close()
-        return jsonify({"error": "exists"}), 400
-
-    cur.execute("""
-        INSERT INTO households
-        (ward_id, household_name, address_line1, city, state,
-         contact_phone, password)
-        VALUES (1, %s, %s, %s, %s, %s, %s)
-    """, (
-        d["name"],
-        d["location"],
-        "Kerala",
-        "Kerala",
-        d["phone"],
-        d["password"]
-    ))
-
-    mysql.connection.commit()
-    cur.close()
-    return jsonify({"ok": True})
-
-# --------------------
-# HOUSEHOLD LOGIN
-# --------------------
-
-@app.post("/api/login/household")
-def login_household():
-    d = request.json
-    cur = mysql.connection.cursor()
-
-    cur.execute("""
-        SELECT household_id FROM households
-        WHERE contact_phone=%s AND password=%s
-    """, (d["phone"], d["password"]))
-
-    user = cur.fetchone()
-    cur.close()
-
-    if not user:
-        return jsonify({"error": "invalid"}), 401
-
-    return jsonify({"ok": True})
-
-# --------------------
-# COLLECTOR LOGIN
+# AUTH
 # --------------------
 
 @app.post("/api/login/collector")
 def login_collector():
     d = request.json
     cur = mysql.connection.cursor()
-
-    cur.execute("""
-        SELECT worker_id FROM workers
-        WHERE phone=%s AND password=%s
-    """, (d["phone"], d["password"]))
-
-    worker = cur.fetchone()
+    cur.execute(
+        "SELECT worker_id FROM workers WHERE phone=%s AND password=%s",
+        (d["phone"], d["password"])
+    )
+    row = cur.fetchone()
     cur.close()
 
-    if not worker:
+    if not row:
         return jsonify({"error": "invalid"}), 401
 
-    return jsonify({"ok": True})
+    return jsonify({"ok": True, "worker_id": row["worker_id"]})
 
 # --------------------
-# DEBUG
+# COLLECTOR REQUESTS (COMPACT CARDS)
 # --------------------
 
-@app.get("/debug/db")
-def debug_db():
+@app.get("/api/collector/requests")
+def collector_requests():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT DATABASE() AS db, @@hostname AS host, @@port AS port")
-    info = cur.fetchone()
-    cur.close()
-    return info
-
-# --------------------
-# DISTRICTS
-# --------------------
-
-@app.get("/api/districts")
-def get_districts():
-    cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM districts_cities")
+    cur.execute("""
+        SELECT
+            pr.pickup_request_id,
+            pr.notes,
+            pr.request_date,
+            h.household_name,
+            h.contact_phone
+        FROM pickup_requests pr
+        JOIN households h ON pr.household_id = h.household_id
+        WHERE pr.status = 'requested'
+        ORDER BY pr.requested_at ASC
+    """)
     rows = cur.fetchall()
     cur.close()
     return jsonify(rows)
 
 # --------------------
-# PICKUP REQUEST (FIXED)
+# MARK AS COLLECTED
 # --------------------
 
-@app.post("/api/pickup-request")
-def create_pickup_request():
-    data = request.json
-
-    household_id = data.get("household_id")
-    notes = data.get("notes")
-
-    if not household_id:
-        return jsonify({"error": "Missing household"}), 400
-
+@app.post("/api/collector/collect")
+def collector_collect():
+    d = request.json
     cur = mysql.connection.cursor()
 
     cur.execute("""
-        INSERT INTO pickup_requests
-        (household_id, request_date, status, notes)
-        VALUES (%s, CURDATE(), 'requested', %s)
-    """, (household_id, notes))
+        UPDATE pickup_requests
+        SET status='collected',
+            collected_at=NOW()
+        WHERE pickup_request_id=%s
+    """, (d["pickup_request_id"],))
 
     mysql.connection.commit()
     cur.close()
+    return jsonify({"ok": True})
 
+# --------------------
+# PAUSE REQUEST
+# --------------------
+
+@app.post("/api/collector/pause")
+def collector_pause():
+    d = request.json
+    cur = mysql.connection.cursor()
+
+    cur.execute("""
+        UPDATE pickup_requests
+        SET status='assigned'
+        WHERE pickup_request_id=%s
+    """, (d["pickup_request_id"],))
+
+    mysql.connection.commit()
+    cur.close()
+    return jsonify({"ok": True})
+
+# --------------------
+# FLAG / VIOLATION
+# --------------------
+
+@app.post("/api/collector/flag")
+def collector_flag():
+    d = request.json
+    cur = mysql.connection.cursor()
+
+    cur.execute("""
+        INSERT INTO violations
+        (
+            household_id,
+            worker_id,
+            pickup_request_id,
+            violation_reason_id,
+            severity,
+            violation_date,
+            description
+        )
+        SELECT
+            pr.household_id,
+            %s,
+            pr.pickup_request_id,
+            %s,
+            %s,
+            CURDATE(),
+            %s
+        FROM pickup_requests pr
+        WHERE pr.pickup_request_id = %s
+    """, (
+        d["worker_id"],          # TEMP (can be session later)
+        d["reason_id"],
+        d["severity"],
+        d["description"],
+        d["pickup_request_id"]
+    ))
+
+    mysql.connection.commit()
+    cur.close()
     return jsonify({"ok": True})
 
 # --------------------
