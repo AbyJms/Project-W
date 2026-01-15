@@ -1,0 +1,165 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f7fbf8;
+  color: #1f2937;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  background: #1e7f44;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.topbar span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.btn {
+  border: 1px solid #c7e3d3;
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #1e7f44;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 90px 20px;
+}
+
+.badge {
+  background: #e6f4ea;
+  color: #1e7f44;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.hero h2 {
+  font-size: 48px;
+  margin: 20px 0 10px;
+}
+
+.hero h2 span {
+  color: #1e7f44;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  color: #4b5563;
+}
+
+.actions {
+  margin-top: 30px;
+}
+
+.primary-btn {
+  background: #1e7f44;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin-right: 14px;
+}
+
+.link-btn {
+  text-decoration: none;
+  color: #1e7f44;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 60px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.stats h3 {
+  color: #1e7f44;
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+/* Roles */
+.roles {
+  padding: 70px 30px;
+  text-align: center;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.role-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: left;
+}
+
+.role-card h3 {
+  margin-top: 0;
+}
+
+.role-card ul {
+  padding-left: 18px;
+  color: #374151;
+}
+
+.role-card button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #c7e3d3;
+  background: #f0faf5;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #6b7280;
+}

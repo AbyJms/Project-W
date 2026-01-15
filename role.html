@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Choose Role | Project W</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="logo">W</div>
+    <div>
+      <h1>Project W</h1>
+      <span>Haritha Karma Sena • Kerala</span>
+    </div>
+  </div>
+</header>
+
+<section class="roles">
+  <h2>Choose Your Role</h2>
+  <p>Select your role to access the appropriate dashboard and features</p>
+
+  <div class="role-grid">
+    <div class="role-card">
+      <h3>Household</h3>
+      <p>Request waste collection and track your household's waste management</p>
+      <ul>
+        <li>Request pickup</li>
+        <li>View history</li>
+        <li>Track status</li>
+      </ul>
+      <button onclick="selectRole('household')">Continue as Household →</button>
+    </div>
+
+    <div class="role-card">
+      <h3>Waste Collector</h3>
+      <p>Manage daily routes and record waste collection activities</p>
+      <ul>
+        <li>View routes</li>
+        <li>Mark collections</li>
+        <li>Upload reports</li>
+      </ul>
+      <button onclick="selectRole('collector')">Continue as Collector →</button>
+    </div>
+
+    <div class="role-card">
+      <h3>Administrator</h3>
+      <p>Monitor operations, manage users, and generate reports</p>
+      <ul>
+        <li>View analytics</li>
+        <li>Manage users</li>
+        <li>Resolve appeals</li>
+      </ul>
+      <button onclick="selectRole('admin')">Continue as Admin →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Government of Kerala. All rights reserved.
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
