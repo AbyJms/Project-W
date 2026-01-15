@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Project W</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
 
@@ -15,7 +15,7 @@
       <span>Haritha Karma Sena • Kerala</span>
     </div>
   </div>
-  <a href="role.html" class="btn">Sign In</a>
+  <button class="btn" onclick="goTo('/auth')">Sign In</button>
 </header>
 
 <section class="hero">
@@ -23,31 +23,13 @@
   <h2>Clean Kerala, <span>Green Kerala</span></h2>
   <p>
     A modern platform connecting households, waste collectors, and administrators
-    for efficient, transparent, and sustainable municipal waste management.
+    for sustainable waste management.
   </p>
 
   <div class="actions">
-    <a href="role.html" class="primary-btn">Get Started →</a>
-    <a href="#" class="link-btn">Learn More</a>
-  </div>
-</section>
-
-<section class="stats">
-  <div>
-    <h3>2.5L+</h3>
-    <p>Households Served</p>
-  </div>
-  <div>
-    <h3>98%</h3>
-    <p>Collection Rate</p>
-  </div>
-  <div>
-    <h3>850+</h3>
-    <p>Active Collectors</p>
-  </div>
-  <div>
-    <h3>14</h3>
-    <p>Districts Covered</p>
+    <button class="primary-btn" onclick="goTo('/role')">
+      Get Started →
+    </button>
   </div>
 </section>
 
@@ -55,5 +37,6 @@
   © 2026 Government of Kerala. All rights reserved.
 </footer>
 
+<script src="/static/app.js"></script>
 </body>
 </html>
