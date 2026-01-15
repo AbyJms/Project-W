@@ -22,21 +22,42 @@
   <h2>Waste Collector Actions</h2>
   <p class="muted">Daily collection reporting</p>
 
+  <label>Pending Pickup Requests</label>
+  <select id="requestSelect">
+    <option value="">Select request</option>
+  </select>
+
   <div class="action-grid">
 
     <div class="action-card warning">
       <h3>Flag a Location</h3>
       <p>Report overflow, illegal dumping, or blocked access.</p>
 
-      <textarea placeholder="Describe the issue"></textarea>
-      <button class="btn">Flag Location</button>
+      <label>Reason</label>
+      <select id="flagReason">
+        <option value="1">Overflow</option>
+        <option value="2">Wrong Waste Type</option>
+        <option value="3">Blocked Access</option>
+      </select>
+
+      <label>Severity</label>
+      <select id="severity">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <textarea id="flagText" placeholder="Describe the issue"></textarea>
+      <button id="flagBtn" class="btn">Flag Location</button>
     </div>
 
     <div class="action-card success">
       <h3>Collection Completed</h3>
       <p>Confirm successful waste collection.</p>
 
-      <button class="primary-btn">Mark as Collected</button>
+      <button id="markCollected" class="primary-btn">
+        Mark as Collected
+      </button>
     </div>
 
   </div>
@@ -46,5 +67,6 @@
   © 2026 Government of Kerala. No rights reserved.
 </footer>
 
+<script src="/static/app.js"></script>
 </body>
 </html>

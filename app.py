@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from db import mysql, init_db
+import os
 
 app = Flask(__name__)
 init_db(app)
@@ -69,7 +70,6 @@ def api_signup():
 
     mysql.connection.commit()
     cur.close()
-
     return jsonify({"ok": True})
 
 # --------------------
@@ -117,8 +117,9 @@ def login_collector():
     return jsonify({"ok": True})
 
 # --------------------
+# DEBUG
+# --------------------
 
-import os
 @app.get("/debug/db")
 def debug_db():
     cur = mysql.connection.cursor()
@@ -126,6 +127,10 @@ def debug_db():
     info = cur.fetchone()
     cur.close()
     return info
+
+# --------------------
+# DISTRICTS
+# --------------------
 
 @app.get("/api/districts")
 def get_districts():
@@ -135,37 +140,35 @@ def get_districts():
     cur.close()
     return jsonify(rows)
 
+# --------------------
+# PICKUP REQUEST (FIXED)
+# --------------------
+
 @app.post("/api/pickup-request")
-def create_pickup():
-    d = request.json
+def create_pickup_request():
+    data = request.json
+
+    household_id = data.get("household_id")
+    notes = data.get("notes")
+
+    if not household_id:
+        return jsonify({"error": "Missing household"}), 400
+
     cur = mysql.connection.cursor()
 
-    # create pickup request
     cur.execute("""
         INSERT INTO pickup_requests
         (household_id, request_date, status, notes)
         VALUES (%s, CURDATE(), 'requested', %s)
-    """, (d["household_id"], d["notes"]))
-
-    pickup_id = cur.lastrowid
-
-    # insert waste types
-    for wt in d["waste_types"]:
-        cur.execute("""
-            INSERT INTO pickup_request_waste_types
-            (pickup_request_id, waste_type_id)
-            VALUES (%s, %s)
-        """, (pickup_id, wt))
+    """, (household_id, notes))
 
     mysql.connection.commit()
     cur.close()
 
     return jsonify({"ok": True})
 
-
+# --------------------
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=False)
-
-

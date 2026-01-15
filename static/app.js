@@ -115,3 +115,76 @@ if (signupForm) {
     .catch(() => alert("Account already exists"));
   });
 }
+
+/* ---------- DISTRICT → CITY DROPDOWNS ---------- */
+const districtSelect = document.getElementById("districtSelect");
+const citySelect = document.getElementById("citySelect");
+
+let districtData = [];
+
+if (districtSelect && citySelect) {
+  fetch("/api/districts")
+    .then(r => r.json())
+    .then(data => {
+      districtData = data;
+
+      data.forEach(d => {
+        const opt = document.createElement("option");
+        opt.value = d.district;
+        opt.textContent = d.district;
+        districtSelect.appendChild(opt);
+      });
+    });
+
+  districtSelect.addEventListener("change", () => {
+    citySelect.innerHTML = '<option value="">Select city</option>';
+
+    const selected = districtData.find(
+      d => d.district === districtSelect.value
+    );
+
+    if (!selected) return;
+
+    ["city1", "city2", "city3", "city4"].forEach(key => {
+      if (selected[key]) {
+        const opt = document.createElement("option");
+        opt.value = selected[key];
+        opt.textContent = selected[key];
+        citySelect.appendChild(opt);
+      }
+    });
+  });
+}
+
+/* ---------- PICKUP REQUEST ---------- */
+const submitPickup = document.getElementById("submitPickup");
+
+if (submitPickup) {
+  submitPickup.addEventListener("click", () => {
+    const district = document.getElementById("districtSelect").value;
+    const city = document.getElementById("citySelect").value;
+    const address = document.getElementById("address").value;
+    const notes = document.getElementById("notes").value;
+
+    if (!district || !city || !address) {
+      alert("Please fill all location fields");
+      return;
+    }
+
+    // TEMP: household_id = 1 (replace with session later)
+    fetch("/api/pickup-request", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        household_id: 1,
+        notes: `District: ${district}, City: ${city}, Address: ${address}. ${notes}`
+      })
+    })
+    .then(r => {
+      if (!r.ok) throw 0;
+      return r.json();
+    })
+    .then(() => alert("Pickup request placed"))
+    .catch(() => alert("Failed to place request"));
+  });
+}

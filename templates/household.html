@@ -5,6 +5,32 @@
   <title>Household Dashboard | Project W</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/static/style.css" />
+
+  <!-- FORCE FORM FIELDS TO STACK -->
+  <style>
+    .action-card .form-group {
+      display: block;
+      width: 100%;
+      margin-bottom: 14px;
+    }
+
+    .action-card label {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .action-card select,
+    .action-card input,
+    .action-card textarea {
+      display: block;
+      width: 100%;
+    }
+
+    .checkbox-group label {
+      display: inline-block;
+      margin-right: 12px;
+    }
+  </style>
 </head>
 <body>
 
@@ -24,14 +50,59 @@
 
   <div class="action-grid">
 
+    <!-- REPORT EXCESS WASTE -->
     <div class="action-card">
       <h3>Report Excess Waste</h3>
       <p>Notify collectors if you have more waste than usual.</p>
 
-      <textarea placeholder="Describe the waste (optional)"></textarea>
-      <button class="primary-btn">Report Excess Waste</button>
+      <div class="form-group">
+        <label>District</label>
+        <select id="districtSelect">
+          <option value="">Select district</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Closest City</label>
+        <select id="citySelect">
+          <option value="">Select city</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Exact Address</label>
+        <input
+          type="text"
+          id="address"
+          placeholder="House name, street, landmark"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Waste Type</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" /> Bio waste</label>
+          <label><input type="checkbox" /> Plastic</label>
+          <label><input type="checkbox" /> Glass</label>
+          <label><input type="checkbox" /> Metal</label>
+          <label><input type="checkbox" /> E-waste</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Additional Notes</label>
+        <textarea
+          id="notes"
+          placeholder="Describe the waste (optional)"
+        ></textarea>
+      </div>
+
+      <button class="primary-btn" id="submitPickup">
+        Place Pickup Request
+      </button>
     </div>
 
+    <!-- NO COLLECTION -->
     <div class="action-card secondary">
       <h3>No Collection Needed</h3>
       <p>Inform collectors that pickup is not required today.</p>
@@ -46,5 +117,6 @@
   © 2026 Government of Kerala. No rights reserved.
 </footer>
 
+<script src="/static/app.js"></script>
 </body>
 </html>
