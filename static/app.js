@@ -17,63 +17,101 @@ function selectRole(role) {
 }
 
 /* ---------- HOUSEHOLD LOGIN ---------- */
-document.getElementById("authForm")?.addEventListener("submit", e => {
-  e.preventDefault();
+const authForm = document.getElementById("authForm");
 
-  fetch("/api/login/household", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      phone: document.getElementById("number").value,
-      password: document.getElementById("password").value
+if (authForm) {
+  authForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const phone = document.getElementById("number");
+    const password = document.getElementById("password");
+
+    if (!phone || !password) {
+      alert("Login form broken");
+      return;
+    }
+
+    fetch("/api/login/household", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        phone: phone.value,
+        password: password.value
+      })
     })
-  })
-  .then(r => {
-    if (!r.ok) throw 0;
-    return r.json();
-  })
-  .then(() => goTo("/household"))
-  .catch(() => alert("Invalid household login"));
-});
+    .then(r => {
+      if (!r.ok) throw 0;
+      return r.json();
+    })
+    .then(() => goTo("/household"))
+    .catch(() => alert("Invalid household login"));
+  });
+}
 
 /* ---------- COLLECTOR LOGIN ---------- */
-document.getElementById("collectorAuthForm")?.addEventListener("submit", e => {
-  e.preventDefault();
+const collectorForm = document.getElementById("collectorAuthForm");
 
-  fetch("/api/login/collector", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      phone: document.getElementById("number").value,
-      password: document.getElementById("password").value
+if (collectorForm) {
+  collectorForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const phone = document.getElementById("number");
+    const password = document.getElementById("password");
+
+    if (!phone || !password) {
+      alert("Collector form broken");
+      return;
+    }
+
+    fetch("/api/login/collector", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        phone: phone.value,
+        password: password.value
+      })
     })
-  })
-  .then(r => {
-    if (!r.ok) throw 0;
-    return r.json();
-  })
-  .then(() => goTo("/collector"))
-  .catch(() => alert("Invalid collector login"));
-});
+    .then(r => {
+      if (!r.ok) throw 0;
+      return r.json();
+    })
+    .then(() => goTo("/collector"))
+    .catch(() => alert("Invalid collector login"));
+  });
+}
 
 /* ---------- SIGNUP ---------- */
-document.getElementById("signupForm")?.addEventListener("submit", e => {
-  e.preventDefault();
+const signupForm = document.getElementById("signupForm");
 
-  fetch("/api/signup", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: document.getElementById("name").value,
-      phone: document.getElementById("phone").value,
-      password: document.getElementById("password").value,
-      location: document.getElementById("location").value
+if (signupForm) {
+  signupForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const name = document.getElementById("name");
+    const phone = document.getElementById("phone");
+    const password = document.getElementById("password");
+    const location = document.getElementById("location");
+
+    if (!name || !phone || !password || !location) {
+      alert("Signup form broken");
+      return;
+    }
+
+    fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name.value,
+        phone: phone.value,
+        password: password.value,
+        location: location.value
+      })
     })
-  })
-  .then(r => {
-    if (!r.ok) throw 0;
-    return r.json();
-  })
-  .then(() => goTo("/household"))
-  .catch(() => alert("Account already exists"));
-});
+    .then(r => {
+      if (!r.ok) throw 0;
+      return r.json();
+    })
+    .then(() => goTo("/household"))
+    .catch(() => alert("Account already exists"));
+  });
+}
