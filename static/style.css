@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f7fbf8;
+  color: #1f2937;
+}
+
+/* Topbar */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.logo {
+  width: 42px;
+  height: 42px;
+  background: #1e7f44;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+/* Buttons */
+.btn,
+button {
+  border: 1px solid #c7e3d3;
+  background: transparent;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: #1e7f44;
+  color: #fff;
+  border: none;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero span {
+  color: #1e7f44;
+}
+
+/* Roles */
+.roles {
+  padding: 60px 30px;
+  text-align: center;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.role-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 30px;
+}
+
+/* Auth layout */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.auth-left {
+  background: linear-gradient(135deg, #1e7f44, #2f9e62);
+  color: #fff;
+  padding: 60px;
+}
+
+.auth-right {
+  padding: 60px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+}
