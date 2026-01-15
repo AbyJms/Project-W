@@ -18,40 +18,23 @@
   </div>
 
   <h2>Building a cleaner,<br>greener Kerala together.</h2>
-
-  <p>
-    Sign in to manage waste collection and reporting.
-  </p>
-
-  <footer class="auth-footer">
-    © 2026 Government of Kerala
-  </footer>
+  <p>Sign in or register to continue.</p>
 </section>
 
 <section class="auth-right">
-  <button class="back-btn" onclick="goTo('/')">
-    ← Back to Home
-  </button>
+  <button class="back-btn" onclick="goTo('/')">← Back</button>
 
-  <h2>Welcome back</h2>
-  <p>Sign in to continue</p>
+  <h2>Login / Register</h2>
 
-  <form>
+  <form id="authForm">
     <label>Email</label>
-    <input type="email" placeholder="you@example.com" required />
+    <input type="email" id="email" required />
 
-    <label>Password</label>
-    <input type="password" placeholder="Enter password" required />
+    <label>Phone (for registration)</label>
+    <input type="text" id="phone" />
 
-    <button class="primary-btn full" type="submit">
-      Sign In
-    </button>
+    <button class="primary-btn" type="submit">Continue</button>
   </form>
-  <div class="auth-alt">
-    Don’t have an account?
-    <a href="#" class="signup-link">Sign up</a>
-  </div>
-  
 </section>
 
 <script src="/static/app.js"></script>
