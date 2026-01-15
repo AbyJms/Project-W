@@ -4,73 +4,56 @@
   <meta charset="UTF-8" />
   <title>Sign In | Project W</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Shared theme -->
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body class="auth-layout">
 
-  <!-- LEFT SIDE (GREEN PANEL) -->
-  <section class="auth-left">
-    <div class="auth-brand">
-      <div class="logo">W</div>
-      <div>
-        <h1>Project W</h1>
-        <span>Haritha Karma Sena • Kerala</span>
-      </div>
+<section class="auth-left">
+  <div class="auth-brand">
+    <div class="logo">W</div>
+    <div>
+      <h1>Project W</h1>
+      <span>Haritha Karma Sena • Kerala</span>
     </div>
+  </div>
 
-    <h2>
-      Building a cleaner,<br />
-      greener Kerala together.
-    </h2>
+  <h2>Building a cleaner,<br>greener Kerala together.</h2>
 
-    <p>
-      Join thousands of households, waste collectors, and administrators
-      working towards sustainable waste management.
-    </p>
+  <p>
+    Sign in to manage waste collection and reporting.
+  </p>
 
-    <footer class="auth-footer">
-      © 2026 Government of Kerala
-    </footer>
-  </section>
+  <footer class="auth-footer">
+    © 2026 Government of Kerala
+  </footer>
+</section>
 
-  <!-- RIGHT SIDE (LOGIN FORM) -->
-  <section class="auth-right">
-    <button class="back-btn" onclick="goBackHome()">← Back to Home</button>
+<section class="auth-right">
+  <button class="back-btn" onclick="goTo('/')">
+    ← Back to Home
+  </button>
 
-    <h2>Welcome back</h2>
-    <p class="subtitle">Sign in to access your dashboard</p>
+  <h2>Welcome back</h2>
+  <p>Sign in to continue</p>
 
-    <form class="auth-form" onsubmit="signIn(event)">
-      <label for="email">Email Address</label>
-      <input
-        type="email"
-        id="email"
-        placeholder="you@example.com"
-        required
-      />
+  <form>
+    <label>Email</label>
+    <input type="email" placeholder="you@example.com" required />
 
-      <label for="password">Password</label>
-      <input
-        type="password"
-        id="password"
-        placeholder="Enter your password"
-        required
-      />
+    <label>Password</label>
+    <input type="password" placeholder="Enter password" required />
 
-      <button type="submit" class="primary-btn full">
-        Sign In
-      </button>
-    </form>
+    <button class="primary-btn full" type="submit">
+      Sign In
+    </button>
+  </form>
+  <div class="auth-alt">
+    Don’t have an account?
+    <a href="#" class="signup-link">Sign up</a>
+  </div>
+  
+</section>
 
-    <p class="signup-text">
-      Don’t have an account?
-      <a href="#">Sign up</a>
-    </p>
-  </section>
-
-  <!-- JS -->
-  <script src="/static/app.js"></script>
+<script src="/static/app.js"></script>
 </body>
 </html>

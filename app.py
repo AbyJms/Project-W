@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 
-app = Flask(__name__)  # 👈 do NOT rename static_folder
+app = Flask(__name__)
 
 @app.route("/")
 def home():

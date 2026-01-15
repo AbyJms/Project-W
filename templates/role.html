@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Choose Role | Project W</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
@@ -19,44 +20,49 @@
 
 <section class="roles">
   <h2>Choose Your Role</h2>
-  <p>Select your role to access the dashboard</p>
+  <p>Select how you want to continue</p>
 
   <div class="role-grid">
+
+    <!-- Household -->
     <div class="role-card">
       <h3>Household</h3>
       <ul>
-        <li>Request pickup</li>
-        <li>View history</li>
-        <li>Track status</li>
+        <li>Report excess waste</li>
+        <li>Skip collection</li>
+        <li>Track pickup</li>
       </ul>
-      <button onclick="selectRole('household')">
+      <button class="primary-btn" onclick="selectRole('household')">
         Continue as Household →
       </button>
     </div>
 
+    <!-- Waste Collector -->
     <div class="role-card">
       <h3>Waste Collector</h3>
       <ul>
-        <li>View routes</li>
+        <li>Flag locations</li>
         <li>Mark collections</li>
-        <li>Upload reports</li>
+        <li>Daily reporting</li>
       </ul>
-      <button onclick="selectRole('collector')">
-        Continue as Collector →
+      <button class="primary-btn" onclick="selectRole('collector')">
+        Continue as Waste Collector →
       </button>
     </div>
 
+    <!-- Player -->
     <div class="role-card">
-      <h3>Administrator</h3>
+      <h3>Player</h3>
       <ul>
-        <li>View analytics</li>
-        <li>Manage users</li>
-        <li>Resolve appeals</li>
+        <li>Play Stranger Trash</li>
+        <li>Complete missions</li>
+        <li>Earn rewards</li>
       </ul>
-      <button onclick="selectRole('admin')">
-        Continue as Admin →
+      <button class="primary-btn" onclick="selectRole('player')">
+        Continue as Player →
       </button>
     </div>
+
   </div>
 </section>
 

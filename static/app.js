@@ -3,16 +3,13 @@ function goTo(path) {
 }
 
 function selectRole(role) {
-  localStorage.setItem("projectW_role", role);
-  goTo("/auth");
-}
+  // Player → direct Stranger Trash / Trash Dash
+  if (role === "player") {
+    window.location.href = "http://172.17.105.224:8000/"; // 🔴 REPLACE WITH REAL SERVER IP
+    return;
+  }
 
-function signIn(e) {
-  e.preventDefault();
-
-  const role = localStorage.getItem("projectW_role");
-  alert(`Logged in as ${role}`);
-
-  // future redirect:
-  // if (role === "household") goTo("/household-dashboard");
+  // Household & Collector → Auth page
+  sessionStorage.setItem("selectedRole", role);
+  window.location.href = "/auth";
 }
