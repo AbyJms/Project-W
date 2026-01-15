@@ -14,5 +14,13 @@ def role():
 def auth():
     return render_template("auth.html")
 
+@app.route("/household")
+def household():
+    return render_template("household.html")
+
+@app.route("/collector")
+def collector():
+    return render_template("collector.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
