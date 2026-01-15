@@ -3,49 +3,77 @@ function goTo(path) {
 }
 
 function selectRole(role) {
-  // PLAYER → external game (unchanged)
   if (role === "player") {
     window.location.href = "http://172.17.105.224:8000/";
     return;
   }
 
-  // COLLECTOR → collector-only auth (NO SIGNUP)
   if (role === "collector") {
     goTo("/collector-auth");
     return;
   }
 
-  // HOUSEHOLD → normal auth (can sign up)
   goTo("/auth");
 }
 
+/* ---------- HOUSEHOLD LOGIN ---------- */
 document.getElementById("authForm")?.addEventListener("submit", e => {
   e.preventDefault();
 
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-
-  // Login first
-  fetch("/api/login", {
+  fetch("/api/login/household", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email })
+    body: JSON.stringify({
+      phone: document.getElementById("number").value,
+      password: document.getElementById("password").value
+    })
   })
   .then(r => {
-    if (r.ok) return r.json();
-
-    // Not found → register (ONLY for non-player)
-    return fetch("/api/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, phone })
-    }).then(r => r.json());
+    if (!r.ok) throw 0;
+    return r.json();
   })
-  .then(d => {
-    if (d.role === "collector") {
-      goTo("/collector");
-    } else {
-      goTo("/household");
-    }
-  });
+  .then(() => goTo("/household"))
+  .catch(() => alert("Invalid household login"));
+});
+
+/* ---------- COLLECTOR LOGIN ---------- */
+document.getElementById("collectorAuthForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  fetch("/api/login/collector", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      phone: document.getElementById("number").value,
+      password: document.getElementById("password").value
+    })
+  })
+  .then(r => {
+    if (!r.ok) throw 0;
+    return r.json();
+  })
+  .then(() => goTo("/collector"))
+  .catch(() => alert("Invalid collector login"));
+});
+
+/* ---------- SIGNUP ---------- */
+document.getElementById("signupForm")?.addEventListener("submit", e => {
+  e.preventDefault();
+
+  fetch("/api/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      password: document.getElementById("password").value,
+      location: document.getElementById("location").value
+    })
+  })
+  .then(r => {
+    if (!r.ok) throw 0;
+    return r.json();
+  })
+  .then(() => goTo("/household"))
+  .catch(() => alert("Account already exists"));
 });
