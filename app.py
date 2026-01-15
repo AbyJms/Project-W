@@ -127,6 +127,41 @@ def debug_db():
     cur.close()
     return info
 
+@app.get("/api/districts")
+def get_districts():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * FROM districts_cities")
+    rows = cur.fetchall()
+    cur.close()
+    return jsonify(rows)
+
+@app.post("/api/pickup-request")
+def create_pickup():
+    d = request.json
+    cur = mysql.connection.cursor()
+
+    # create pickup request
+    cur.execute("""
+        INSERT INTO pickup_requests
+        (household_id, request_date, status, notes)
+        VALUES (%s, CURDATE(), 'requested', %s)
+    """, (d["household_id"], d["notes"]))
+
+    pickup_id = cur.lastrowid
+
+    # insert waste types
+    for wt in d["waste_types"]:
+        cur.execute("""
+            INSERT INTO pickup_request_waste_types
+            (pickup_request_id, waste_type_id)
+            VALUES (%s, %s)
+        """, (pickup_id, wt))
+
+    mysql.connection.commit()
+    cur.close()
+
+    return jsonify({"ok": True})
+
 
 
 if __name__ == "__main__":
