@@ -119,13 +119,14 @@ def login_collector():
 # --------------------
 
 import os
-@app.get("/debug/workers")
-def debug_workers():
+@app.get("/debug/db")
+def debug_db():
     cur = mysql.connection.cursor()
-    cur.execute("DESCRIBE workers")
-    rows = cur.fetchall()
+    cur.execute("SELECT DATABASE() AS db, @@hostname AS host, @@port AS port")
+    info = cur.fetchone()
     cur.close()
-    return jsonify(rows)
+    return info
+
 
 
 if __name__ == "__main__":
