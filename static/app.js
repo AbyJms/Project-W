@@ -3,14 +3,19 @@ function goTo(path) {
 }
 
 function selectRole(role) {
-  // 🔥 PLAYER FLOW — DO NOT TOUCH BACKEND
+  // PLAYER → external game (unchanged)
   if (role === "player") {
     window.location.href = "http://172.17.105.224:8000/";
     return;
   }
 
-  // Household / Collector → Auth
-  sessionStorage.setItem("selectedRole", role);
+  // COLLECTOR → collector-only auth (NO SIGNUP)
+  if (role === "collector") {
+    goTo("/collector-auth");
+    return;
+  }
+
+  // HOUSEHOLD → normal auth (can sign up)
   goTo("/auth");
 }
 
