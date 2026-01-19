@@ -2,71 +2,141 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Collector Dashboard | Project W</title>
+  <title>Collector Dashboard | Karma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/static/style.css" />
 </head>
 <body>
 
+<!-- TOP BAR -->
 <header class="topbar">
   <div class="brand">
     <div class="logo">W</div>
     <div>
-      <h1>Project W</h1>
+      <h1>Karma</h1>
       <span>Haritha Karma Sena · Kerala</span>
     </div>
   </div>
 </header>
 
-<main class="dashboard">
-  <h2>Waste Collector Actions</h2>
-  <p class="muted">Daily collection reporting</p>
+<!-- MAIN DASHBOARD -->
+<main class="dashboard dashboard-split">
 
-  <label>Pending Pickup Requests</label>
-  <select id="requestSelect">
-    <option value="">Select request</option>
-  </select>
-
-  <div class="action-grid">
-
-    <div class="action-card warning">
-      <h3>Flag a Location</h3>
-      <p>Report overflow, illegal dumping, or blocked access.</p>
-
-      <label>Reason</label>
-      <select id="flagReason">
-        <option value="1">Overflow</option>
-        <option value="2">Wrong Waste Type</option>
-        <option value="3">Blocked Access</option>
-      </select>
-
-      <label>Severity</label>
-      <select id="severity">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
-
-      <textarea id="flagText" placeholder="Describe the issue"></textarea>
-      <button id="flagBtn" class="btn">Flag Location</button>
+  <!-- LEFT : MAIN FEATURE -->
+  <section class="waste-main">
+    <div class="waste-header">
+      <div>
+        <h2>Waste Information</h2>
+        <p class="muted">Reported waste locations</p>
+      </div>
     </div>
 
-    <div class="action-card success">
-      <h3>Collection Completed</h3>
-      <p>Confirm successful waste collection.</p>
+    <table class="waste-table">
+      <thead>
+        <tr>
+          <th>District</th>
+          <th>City</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Thrissur</td>
+          <td>Irinjalakuda</td>
+          <td>Main Road near Bus Stand</td>
+        </tr>
+        <tr>
+          <td>Ernakulam</td>
+          <td>Kochi</td>
+          <td>Market Junction, Ward 5</td>
+        </tr>
+        <tr>
+          <td>Kozhikode</td>
+          <td>Vadakara</td>
+          <td>Residential Area, Block C</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
-      <button id="markCollected" class="primary-btn">
-        Mark as Collected
-      </button>
+  <!-- RIGHT : COLLECTOR TOOLS -->
+  <aside class="collector-actions">
+    <h3>Collector Tools</h3>
+    <p class="muted">Quick actions</p>
+
+    <!-- SMALL FLAG BOX -->
+    <div class="mini-flag-box">
+      <span class="flag-label">🚩 Flag issue</span>
+      <button class="btn small" onclick="openFlagModal()">Flag</button>
+    </div>
+
+    <hr />
+
+    <label>Pending Pickup Requests</label>
+    <select>
+      <option>Select request</option>
+      <option>Thrissur · Main Road</option>
+      <option>Kochi · Market Junction</option>
+    </select>
+
+    <button class="primary-btn full">
+      Mark as Collected
+    </button>
+  </aside>
+
+</main>
+
+<!-- FLAG MODAL -->
+<div class="modal-overlay" id="flagModal">
+  <div class="modal-box">
+
+    <h3>Flag a Location</h3>
+    <p class="muted">Report issues found during collection</p>
+
+    <label>District</label>
+    <input type="text" placeholder="District name">
+
+    <label>City</label>
+    <input type="text" placeholder="City name">
+
+    <label>Address</label>
+    <textarea placeholder="Exact address or landmark"></textarea>
+
+    <label>Issue Type</label>
+    <select>
+      <option>Overflow</option>
+      <option>Wrong Waste Type</option>
+      <option>Blocked Access</option>
+    </select>
+
+    <label>Severity</label>
+    <select>
+      <option>Low</option>
+      <option>Medium</option>
+      <option>High</option>
+    </select>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeFlagModal()">Cancel</button>
+      <button class="primary-btn">Submit</button>
     </div>
 
   </div>
-</main>
+</div>
 
 <footer>
-  © 2026 Government of Kerala. No rights reserved.
+  © 2026 Project W. All rights reserved.
 </footer>
 
-<script src="/static/app.js"></script>
+<script>
+  function openFlagModal() {
+    document.getElementById("flagModal").classList.add("active");
+  }
+
+  function closeFlagModal() {
+    document.getElementById("flagModal").classList.remove("active");
+  }
+</script>
+
 </body>
 </html>

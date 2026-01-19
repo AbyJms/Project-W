@@ -36,7 +36,7 @@ def collector():
 @app.route("/household")
 def household():
     return render_template("household.html")
-    
+
 # --------------------
 # HOUSEHOLD SIGNUP
 # --------------------

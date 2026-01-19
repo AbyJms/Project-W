@@ -420,3 +420,120 @@ footer {
 .primary-btn.full {
   width: 100%;
 }
+
+
+/* MAIN DASHBOARD SPLIT */
+.dashboard {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+.dashboard-split {
+  display: flex;
+  gap: 24px;
+}
+
+/* MAIN FEATURE : WASTE INFO */
+.waste-main {
+  flex: 3;
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+/* HEADER */
+.waste-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+/* WASTE TABLE */
+.waste-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.waste-table th,
+.waste-table td {
+  padding: 14px;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.waste-table th {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* STATUS COLORS */
+.danger {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.warning {
+  color: #d97706;
+  font-weight: 600;
+}
+
+.info {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* SIDE ACTION PANEL */
+.collector-actions {
+  flex: 1;
+  background: #f9faf9;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+/* FULL WIDTH BUTTON */
+.full {
+  width: 100%;
+  margin-top: 12px;
+}
+
+/* ===============================
+   FLAG MODAL
+================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-box {
+  background: #ffffff;
+  width: 420px;
+  padding: 24px;
+  border-radius: 16px;
+}
+
+.modal-box input,
+.modal-box select,
+.modal-box textarea {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
