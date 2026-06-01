@@ -1,0 +1,21 @@
+h1 {
+  color: green;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.home-container {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.home-title {
+  font-size: 48px;
+}
+
+.home-subtitle {
+  font-size: 20px;
+  color: gray;
+}
