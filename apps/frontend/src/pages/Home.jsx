@@ -12,7 +12,7 @@ function Home(){
         Waste Management Platform
       </p>
 
-      <Link to="/login">
+      <Link to="/role">
         <button className="home-button">
           Get Started
         </button>
