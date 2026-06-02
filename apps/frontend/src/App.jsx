@@ -4,6 +4,11 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import RoleSelect from "./pages/RoleSelect";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
+import Requests from "./pages/Requests";
+import Complaints from "./pages/Complaints";
+import Schedule from "./pages/Schedule";
+
 
 function App() {
   return (
